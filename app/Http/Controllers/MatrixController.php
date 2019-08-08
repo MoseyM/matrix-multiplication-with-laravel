@@ -40,14 +40,16 @@ class MatrixController extends Controller
         ]);
             
         //multiply the matrix
+        $product = $this->helper->getMultiMatrix(
+            $request->firstMatrix, 
+            $request->secondMatrix, 
+            1);
         
-        //return the alpha parsed representation
-        
-        return response()->json(['result' => true]);
+        return response()->json(['data' => $product]);
     }
 
     /**
-     * Get the count for the requested Matrix.
+     * Get the count(number of columns) for the requested Matrix.
      * 
      * @param Request $request
      * @param string  $name     The field to use.
