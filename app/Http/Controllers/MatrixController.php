@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Rules\FullMatrix;
+use App\Rules\MatrixRange;
 use App\Services\MatrixHelperService;
 
 class MatrixController extends Controller
@@ -30,14 +31,23 @@ class MatrixController extends Controller
      */
     public function getMatrixProduct(Request $request)
     {
+        $fullMatrixRule = new FullMatrix;
+        $matrixRangeRule = new MatrixRange(1,26);
         //validate the input
         $validator = Validator::make($request->all(), [
-            'firstMatrix'  => ['required', 'array', new FullMatrix],
+            'firstMatrix'  => [
+                'required', 
+                'array', 
+                $fullMatrixRule, 
+                $matrixRangeRule
+            ],
             'secondMatrix' => [
                 'required', 
                 'array',
-                new FullMatrix,
-                "size:{$this->getMatrixCount($request, 'firstMatrix')}"]
+                $fullMatrixRule,
+                $matrixRangeRule,
+                "size:{$this->getMatrixCount($request, 'firstMatrix')}"
+            ]
         ]);
 
         if($validator->fails()) {
