@@ -3,9 +3,24 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Rules\FullMatrix;
+use App\Services\MatrixHelperService;
 
 class MatrixController extends Controller
 {
+    protected $helper;
+
+    /**
+     * Create a new instance.
+     *
+     * @param  MatrixHelperService  $users
+     * @return void
+     */
+    public function __construct(MatrixHelperService $helper)
+    {
+        $this->helper = $helper;
+    }
+
+
     /**
      * Creates a new matrix product from user input.
      * 
