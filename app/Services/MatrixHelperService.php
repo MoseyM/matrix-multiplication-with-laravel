@@ -66,7 +66,7 @@ class MatrixHelperService
     }
 
     /**
-     * Sums the product of two equally length array.
+     * Sums the product of two equally-length array.
      * 
      * @param  array $first
      * @param  array $second
@@ -83,7 +83,7 @@ class MatrixHelperService
     }
 
     /**
-     * Retrieves the alpha representation for parameter.
+     * Retrieves the alpha representation for the parameter.
      * 
      * @param int $key
      * 
@@ -95,8 +95,10 @@ class MatrixHelperService
         if ($key < $totalChars) {
             return $this->alpha[$key];
         } else {
+            //Get the int to determine the first letter.
             $index = floor($key/$totalChars);
             $alpha = $this->alpha[$index];
+            //Take the remainder and find the index of the second letter.
             $alpha += $this->alpha[$key - ($totalChars*$index)];
             return $alpha;
         }

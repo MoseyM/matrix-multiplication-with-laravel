@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\Rules\FullMatrix;
 use App\Services\MatrixHelperService;
 
@@ -30,7 +31,7 @@ class MatrixController extends Controller
     public function getMatrixProduct(Request $request)
     {
         //validate the input
-        $this->validate($request, [
+        $validator = Validator::make($request->all(), [
             'firstMatrix'  => ['required', 'array', new FullMatrix],
             'secondMatrix' => [
                 'required', 
@@ -38,6 +39,12 @@ class MatrixController extends Controller
                 new FullMatrix,
                 "size:{$this->getMatrixCount($request, 'firstMatrix')}"]
         ]);
+
+        if($validator->fails()) {
+            return response()->json([
+                'result' => 'fail',
+                'errors' => $validator->errors()], 422);
+        }
             
         //multiply the matrix
         $product = $this->helper->getMultiMatrix(
@@ -45,7 +52,9 @@ class MatrixController extends Controller
             $request->secondMatrix, 
             1);
         
-        return response()->json(['data' => $product]);
+        return response()->json([
+            'result' => 'success',
+            'data' => $product]);
     }
 
     /**

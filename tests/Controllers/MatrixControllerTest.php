@@ -13,7 +13,7 @@ class MatrixControllerTest extends TestCase {
 	public function matrixDataProvider()
 	{
 		return [
-			'correct input'      => [
+			'correct input' => [
 				[
 					[1,2]
 				],
@@ -22,9 +22,12 @@ class MatrixControllerTest extends TestCase {
 					[2]
 				],
 				200,
-				['E']
+				[
+				  'result' => 'success',
+				  'data' => [['E']] 
+				],
 			],
-			'unequal matrixA'    => [
+			'unequal matrixA' => [
 				[
 					[2,4],
 					[3,5,6]
@@ -34,9 +37,11 @@ class MatrixControllerTest extends TestCase {
 					[4,3,6]
 				],
 				422,
-				["firstMatrix" => ["The first matrix must not contain null or empty values."]]
+				[
+					'result' => 'fail',
+					'errors' => ["firstMatrix" => ["The first matrix must not contain null or empty values."]]]
 			],
-			'unequal matrixB'    => [
+			'unequal matrixB' => [
 				[
 					[3,6,5],
 					[6,8,7]
@@ -47,7 +52,9 @@ class MatrixControllerTest extends TestCase {
 					[5,7,8]
 				],
 				422,
-				["secondMatrix" => ["The second matrix must not contain null or empty values."]]
+				[
+					'result' => 'fail',
+					'errors' => ["secondMatrix" => ["The second matrix must not contain null or empty values."]]]
 			],
 			'unequal row to col' => [
 				[
@@ -59,7 +66,9 @@ class MatrixControllerTest extends TestCase {
 					[7]
 				],
 				422,
-				['secondMatrix' => ["The second matrix must contain 4 items."]]
+				[
+					'result' => 'fail',
+					'errors' => ['secondMatrix' => ["The second matrix must contain 4 items."]]]
 			],
 		];
 	}
