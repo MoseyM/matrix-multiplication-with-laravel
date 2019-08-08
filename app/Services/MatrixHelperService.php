@@ -8,6 +8,7 @@ namespace App\Services;
 class MatrixHelperService
 {
     protected $alpha = [
+        0 => 'Z',
         1 => 'A',
         2 => 'B',
         3 => 'C',
@@ -37,7 +38,8 @@ class MatrixHelperService
     ];
 
     /**
-     * Multiply two matrices together and retrieves product.
+     * Multiply two matrices together 
+     * and retrieves product.
      * 
      * @param array   $a
      * @param array   $b
@@ -66,7 +68,8 @@ class MatrixHelperService
     }
 
     /**
-     * Sums the product of two equally-length array.
+     * Sums the product of two 
+     * equally-length array.
      * 
      * @param  array $first
      * @param  array $second
@@ -83,7 +86,8 @@ class MatrixHelperService
     }
 
     /**
-     * Retrieves the alpha representation for the parameter.
+     * Retrieves the alpha representation for
+     * the parameter.
      * 
      * @param int $key
      * 

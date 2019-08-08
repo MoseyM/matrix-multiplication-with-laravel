@@ -60,6 +60,40 @@ class MatrixControllerTest extends TestCase {
 					'errors' => ['secondMatrix' => ["The second matrix must contain 4 items."]]
 				]
 			],
+			'nonnumeric values MatrixA' => [
+				[
+					[2,5,6,'K']
+				],
+				[
+					[5],
+					[6],
+					[8],
+					[9]
+				],
+				422,
+				[
+					'result' => 'fail',
+					'errors' => ['firstMatrix' => ["The matrix must only contain numbers."]]
+				]
+			],
+			'out of range numeric values' => [
+				[
+					[400,30,6]
+				],
+				[
+					[70],
+					[7],
+					[6]
+				],
+				422,
+				[
+					'result' => 'fail',
+					'errors' => [
+						'firstMatrix' => ["The first matrix must only contain numbers between 1 and 26"],
+						'secondMatrix' => ["The second matrix must only contain numbers between 1 and 26"]
+					]
+				]
+			]
 		];
 	}
 
