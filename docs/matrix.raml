@@ -1,0 +1,38 @@
+/matrix:
+	post:
+		description: |
+			Returns an alpha representation of two matrices.
+		body:
+			application/json:
+				type: |
+					{
+						'type': "object",
+						"required": true,
+						"properties": {
+							"firstMatrix": {
+								"type": "array",
+								"required": true
+							},
+							"secondMatrix": {
+								"type": "array",
+								"required": true
+							}
+						}
+					}
+				example: |
+					{
+						"firstMatrix": |
+							[
+								[1,2,3,4,5],
+								[6,22,5,6,18]
+							],
+						"secondMatrix": |
+							[
+								[3,5,4],
+								[6,8,6],
+								[14,5,4],
+								[14,7,5],
+								[20,5,8],
+								[3,6,5]
+							]
+					}
