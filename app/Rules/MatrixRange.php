@@ -42,9 +42,6 @@ class MatrixRange implements Rule
         if( ($value < $this->min) || ($value > $this->max)) {
             return $value;
         }
-    //     if (!(is_int($value))) {
-    //        return $value;
-    //     }
     }
 
     public function message()

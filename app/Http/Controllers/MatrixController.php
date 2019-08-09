@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Rules\FullMatrix;
 use App\Rules\MatrixRange;
+use App\Rules\MatrixNumeric;
 use App\Services\MatrixHelperService;
 
 class MatrixController extends Controller
@@ -33,18 +34,24 @@ class MatrixController extends Controller
     {
         $fullMatrixRule = new FullMatrix;
         $matrixRangeRule = new MatrixRange(1,26);
+        $matrixIsNumbericRule = new MatrixNumeric;
+
         //validate the input
         $validator = Validator::make($request->all(), [
             'firstMatrix'  => [
+                'bail',
                 'required', 
                 'array', 
                 $fullMatrixRule, 
+                $matrixIsNumbericRule,
                 $matrixRangeRule
             ],
             'secondMatrix' => [
+                'bail',
                 'required', 
                 'array',
                 $fullMatrixRule,
+                $matrixIsNumbericRule,
                 $matrixRangeRule,
                 "size:{$this->getMatrixCount($request, 'firstMatrix')}"
             ]

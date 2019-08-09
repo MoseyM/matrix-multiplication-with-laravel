@@ -8,7 +8,6 @@ namespace App\Services;
 class MatrixHelperService
 {
     protected $alpha = [
-        0 => 'Z',
         1 => 'A',
         2 => 'B',
         3 => 'C',
@@ -50,21 +49,29 @@ class MatrixHelperService
     public function getMultiMatrix($a, $b, $showAlpha = false)
     {
         $final = [];
-        for($i=0; $i < count($b[0]); $i++) {
-            $currentColumn = array_map('array_shift', $b);
-            foreach($a as $currentRow){
-                $cellSum = $this->calcSum($currentRow,$currentColumn);
-                $final[$i][] = ($showAlpha) 
-                                ? $this->parseToAlpha($cellSum)
-                                : $cellSum;
-            }
-            //Remove the first index from each array
-            foreach($b as $ind => $bg) {
-                array_shift($bg);
-                $b[$ind] = $bg;
-            }
+        $total = count($b[0]);
+
+        foreach($a as $key => $currentRow){
+            for($i=0; $i < $total; $i++) {
+                $currentColumn = $this->arrayShiftKey($b, $i);
+                    $cellSum = $this->calcSum($currentRow,$currentColumn);
+
+                    $final[$key][] = ($showAlpha) 
+                                    ? $this->parseToAlpha($cellSum)
+                                    : $cellSum;
+                }
+               
         }
         return $final;
+    }
+
+    public function arrayShiftKey($arr, $index) 
+    {
+        $t = [];
+        foreach($arr as $array) {
+            $t[] = $array[$index];
+        }
+        return $t;
     }
 
     /**
@@ -103,7 +110,12 @@ class MatrixHelperService
             $index = floor($key/$totalChars);
             $alpha = $this->alpha[$index];
             //Take the remainder and find the index of the second letter.
-            $alpha += $this->alpha[$key - ($totalChars*$index)];
+            $remainder = $key - ($totalChars*$index);
+            if($remainder === 0) {
+                $alpha .= 'Z';
+            } else {
+                $alpha .= $this->alpha[$remainder];
+            }
             return $alpha;
         }
     }

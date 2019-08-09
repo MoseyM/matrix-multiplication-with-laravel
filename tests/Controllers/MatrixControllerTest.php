@@ -73,7 +73,7 @@ class MatrixControllerTest extends TestCase {
 				422,
 				[
 					'result' => 'fail',
-					'errors' => ['firstMatrix' => ["The matrix must only contain numbers."]]
+					'errors' => ['firstMatrix' => ["The first matrix must only contain integers(whole numbers)."]]
 				]
 			],
 			'out of range numeric values' => [
@@ -92,6 +92,37 @@ class MatrixControllerTest extends TestCase {
 						'firstMatrix' => ["The first matrix must only contain numbers between 1 and 26"],
 						'secondMatrix' => ["The second matrix must only contain numbers between 1 and 26"]
 					]
+				]
+			],
+			'small complete matrices' => [
+				[
+					[8,12]
+				],
+				[
+					[25, 18],
+					[8,4]
+				],
+				200,
+				[
+					'result' => 'success',
+					'data' => [['KJ', 'GJ']]
+				]
+			],
+			'medium complete matrices' => [
+				[
+					[10,20,10,15],
+					[5,6,7,15]
+				],
+				[
+					[2,4],
+					[6,8],
+					[10,12],
+					[16,18]
+				],
+				200,
+				[
+					'result' => 'success',
+					'data' => [ ['RL', 'VR'], ['MR','PF']]
 				]
 			]
 		];
