@@ -7,6 +7,7 @@ use App\Rules\FullMatrix;
 use App\Rules\MatrixRange;
 use App\Rules\MatrixNumeric;
 use App\Services\MatrixHelperService;
+use Illuminate\Http\JsonResponse;
 
 class MatrixController extends Controller
 {
@@ -28,9 +29,10 @@ class MatrixController extends Controller
      * Creates a new matrix product from user input.
      * 
      * @param  Request $request
-     * @return string
+     * 
+     * @return JsonResponse
      */
-    public function getMatrixProduct(Request $request)
+    public function getMatrixProduct(Request $request): JsonResponse
     {
         $fullMatrixRule = new FullMatrix;
         $matrixRangeRule = new MatrixRange(1,26);
@@ -82,7 +84,7 @@ class MatrixController extends Controller
      * 
      * @return int
      */
-    protected function getMatrixCount(Request $request, $name)
+    protected function getMatrixCount(Request $request, string $name): int
     {
         return count($request->$name[0]);
     }

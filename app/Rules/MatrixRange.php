@@ -9,7 +9,10 @@ use Illuminate\Contracts\Validation\Rule;
  */
 class MatrixRange implements Rule
 {
+    /** @var int */
     protected $min;
+    
+    /** @var int */
     protected $max;
 
     /**
@@ -20,13 +23,16 @@ class MatrixRange implements Rule
      * 
      * @return void
      */
-    public function __construct($min, $max)
+    public function __construct(int $min, int $max)
     {
         $this->min = $min;
         $this->max = $max;
     }
 
-    public function passes($attribute, $value)
+    /**
+     * @inheritdoc
+     */
+    public function passes($attribute, $value): bool
     {
         foreach($value as $val) {
             $chk = array_filter($val, [$this, 'checkRange']);
@@ -37,14 +43,25 @@ class MatrixRange implements Rule
         return true;
     }
 
-    public function checkRange($value)
+    /**
+     * Checks the range for an inputed value.
+     * 
+     * @param int $value The value to check 
+     *                   against the range.
+     * 
+     * @return void|int
+     */
+    public function checkRange(int $value)
     {
         if( ($value < $this->min) || ($value > $this->max)) {
             return $value;
         }
     }
 
-    public function message()
+    /**
+     * @inheritdoc
+     */
+    public function message(): string
     {
         return "The :attribute must only contain numbers between {$this->min} and {$this->max}";
     }

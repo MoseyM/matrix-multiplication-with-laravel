@@ -3,10 +3,16 @@ namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 
+/**
+ * Rule that checks if the matrix has any 
+ * blank or null values.
+ */
 class FullMatrix implements Rule
 {
-    
-    public function passes($attribute, $value)
+    /**
+     * @inheritdoc
+     */
+    public function passes($attribute, $value): bool
     {
         // If there is only one row no need to make check
         if( count($value) !== 1) {
@@ -19,7 +25,10 @@ class FullMatrix implements Rule
         return true;
     }
 
-    public function message()
+    /**
+     * @inheritdoc
+     */
+    public function message(): string
     {
         return "The :attribute must not contain null or empty values.";
     }

@@ -10,7 +10,7 @@ class MatrixControllerTest extends TestCase {
 	 * 
 	 * @return array
 	 */
-	public function matrixDataProvider()
+	public function matrixDataProvider(): array
 	{
 		return [
 			'unequal matrixA' => [
@@ -135,9 +135,18 @@ class MatrixControllerTest extends TestCase {
 	 *
 	 * @dataProvider matrixDataProvider
 	 * 
+	 * @param array $matrixA  The first input matrix
+	 * @param array $matrixB  The second input matrix
+	 * @param int   $status   The HTTP status expected from call
+	 * @param array $expected The expected array denoting 
+	 * 						  response from call
 	 * @return void
 	 */
-    public function testGetMatrixProduct($matrixA, $matrixB, $status, $expected) 
+    public function testGetMatrixProduct(
+						array $matrixA, 
+						array $matrixB, 
+						int $status,
+						array $expected): void 
 	{
 		$response = $this->call('POST','/matrix', [
 				'firstMatrix' => $matrixA, 

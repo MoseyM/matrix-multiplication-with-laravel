@@ -9,7 +9,10 @@ use Illuminate\Contracts\Validation\Rule;
  */
 class MatrixNumeric implements Rule
 {
-    public function passes($attribute, $value)
+    /**
+     * @inheritdoc
+     */
+    public function passes($attribute, $value): bool
     {
         foreach($value as $val) {
             $chk = array_filter($val, [$this, 'checkForNumber']);
@@ -20,6 +23,13 @@ class MatrixNumeric implements Rule
         return true;
     }
 
+    /**
+     * Checks if the param is an integer.
+     * 
+     * @param mixed $value
+     * 
+     * @return void|int
+     */
     public function checkForNumber($value)
     {
         if (!(is_int($value))) {
@@ -27,7 +37,10 @@ class MatrixNumeric implements Rule
         }
     }
 
-    public function message()
+    /**
+     * @inheritdoc
+     */
+    public function message(): string
     {
         return "The :attribute must only contain integers(whole numbers).";
     }
