@@ -13,4 +13,7 @@ Testing will ensure the code is written to accomodate scenarios such as a matrix
 Clone this repository
 Run `composer update`
 
+## API Documentation
+This application at the time of this writing has one open endpoint '/matrix'. To view the parameter requirements and expected return values, check out matrix.raml(within the /docs directory).
+
 
